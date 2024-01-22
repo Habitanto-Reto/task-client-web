@@ -61,4 +61,25 @@ export class AuthDatasourcesImpl extends AuthDatasources {
             throw new Error("Se ha producido un error inesperado", (error as Error));
         }
     }
+
+    //TODO: send token
+    async getListUsers(): Promise<IUserResponse[]> {
+
+        try {
+            const response = await fetch(`${this.baseUrl}/users`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+
+            if (response.ok){
+                return await response.json();
+            }
+
+            return handleResponseError(response);
+        } catch (error) {
+            throw new Error("Se ha producido un error inesperado", (error as Error));
+        }
+    }
 }

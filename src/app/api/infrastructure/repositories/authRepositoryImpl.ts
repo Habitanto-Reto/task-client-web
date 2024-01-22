@@ -15,4 +15,8 @@ export class AuthRepositoryImpl extends AuthRepository {
     async loginUser(authData: { email: string, password: string }): Promise<IUserLoginResponse> {
         return this.dataSource.loginUser(authData);
     }
+
+    async getListUsers(): Promise<IUserResponse[]> {
+        return this.dataSource.getListUsers();
+    }
 }
