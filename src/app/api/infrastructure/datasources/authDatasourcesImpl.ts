@@ -41,7 +41,6 @@ export class AuthDatasourcesImpl extends AuthDatasources {
 
     async loginUser(authData: { email: string, password: string }): Promise<IUserLoginResponse> {
         try {
-            console.log("Login user", authData);
 
             const response = await fetch(`${this.baseUrl}/login`, {
                 method: "POST",
@@ -50,7 +49,6 @@ export class AuthDatasourcesImpl extends AuthDatasources {
                 },
                 body: JSON.stringify(authData),
             });
-            console.log("Response login", response);
 
             if (response.ok){
                 return await response.json();
