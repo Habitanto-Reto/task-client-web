@@ -13,8 +13,8 @@ export class TasksRepositoryImpl extends TasksRepository {
         this.dataSource = dataSource;
     }
 
-    async getListForum({creatorUserId, assigneeUserId, pageSize, pageNumber}: IFetchPaginationParams): Promise<IResponseTasks> {
-        return this.dataSource.getListForum({creatorUserId, assigneeUserId, pageSize, pageNumber});
+    async getListTask({creatorUserId, assigneeUserId, pageSize, pageNumber}: IFetchPaginationParams): Promise<IResponseTasks> {
+        return this.dataSource.getListTask({creatorUserId, assigneeUserId, pageSize, pageNumber});
     }
 
     async removeTask(id: string): Promise<void> {
