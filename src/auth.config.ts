@@ -1,6 +1,5 @@
-import NextAuth, {type NextAuthConfig} from 'next-auth';
+import NextAuth, {type NextAuthConfig, User} from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
-import {IUser} from "../nextauth";
 import {jwtDecode} from "jwt-decode";
 import {AuthDatasourcesImpl} from "@/app/api/infrastructure/datasources/authDatasourcesImpl";
 import {AuthRepositoryImpl} from "@/app/api/infrastructure/repositories/authRepositoryImpl";
@@ -14,9 +13,10 @@ interface DecodedToken {
 }
 
 export const authConfig: NextAuthConfig = {
+    trustHost: true,
     pages: {
         signIn: '/auth/login',
-        newUser: '/auth/new-account',
+        newUser: '/auth/register',
     },
 
     callbacks: {
@@ -38,7 +38,7 @@ export const authConfig: NextAuthConfig = {
         jwt({ token, user }) {
             if ( user ) {
                 token.data = user;
-                const myUser = user as IUser;
+                const myUser = user as any;
                 token.name = myUser.name;
                 token.email = myUser.email;
                 token.username = myUser.username;
@@ -59,16 +59,22 @@ export const authConfig: NextAuthConfig = {
     providers: [
 
         Credentials({
-            async authorize(credentials) {
+            async authorize(credentials): Promise<User | null> {
                 const authDatasource = new AuthDatasourcesImpl();
                 const authRepository = new AuthRepositoryImpl(authDatasource);
                 const authData = {
-                    email: credentials?.email,
-                    password: credentials?.password,
+                    email: (credentials.email as string),
+                    password: (credentials.password as string),
                 };
 
-                return await authRepository.loginUser(authData);
-            },
+                try {
+                    const response = await authRepository.loginUser(authData);
+                    return response as any;
+                } catch (error) {
+                    return null;
+                }
+            }
+
         }),
     ]
 }

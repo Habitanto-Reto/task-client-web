@@ -10,10 +10,8 @@ import {Button} from "@/components/ui/button";
 import {Label} from "@/components/ui/label";
 import {Input} from "@/components/ui/input";
 import {Alert, AlertDescription, AlertTitle} from "@/components/ui/alert";
-// import { useRouter } from 'next/navigation';
 
 export const LoginForm = () => {
-    // const router = useRouter();
     const [state, dispatch] = useFormState(authenticate, undefined);
 
     console.log(state);

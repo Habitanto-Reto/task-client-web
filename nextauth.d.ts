@@ -4,7 +4,7 @@ interface IUser extends DefaultUser {
     uuid: string;
     name: string;
     email: string;
-    token: string;
+    token?: string;
     username?: string;
 }
 
