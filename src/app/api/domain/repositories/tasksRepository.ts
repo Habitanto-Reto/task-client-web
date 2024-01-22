@@ -4,7 +4,7 @@ import {ITaskRequestUpdate} from "@/app/api/domain/entities/taskRequestUpdate";
 import {IRequestCreateTask} from "@/app/api/domain/entities/taskRequestCreate";
 
 export abstract class TasksRepository {
-    abstract getListForum({creatorUserId, assigneeUserId, pageSize, pageNumber}: IFetchPaginationParams): Promise<IResponseTasks>;
+    abstract getListTask({creatorUserId, assigneeUserId, pageSize, pageNumber}: IFetchPaginationParams): Promise<IResponseTasks>;
     abstract removeTask(id: string): Promise<void>;
     abstract createTask(createData: IRequestCreateTask): Promise<void>;
     abstract updateTask(updateData: ITaskRequestUpdate): Promise<void>;

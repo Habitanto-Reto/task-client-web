@@ -17,21 +17,23 @@ export class TasksDatasourcesImpl extends TasksDatasources {
         return session.user.token;
     }
 
-    async getListForum({creatorUserId, assigneeUserId, pageSize, pageNumber}: IFetchPaginationParams): Promise<IResponseTasks> {
+    async getListTask({creatorUserId, assigneeUserId, pageSize, pageNumber}: IFetchPaginationParams): Promise<IResponseTasks> {
         try {
             const url = new URL(`${this.baseUrl}/tasks`);
 
             const params = new URLSearchParams();
-            creatorUserId && params.append('creatorUserId', creatorUserId);
-            assigneeUserId && params.append('assigneeUserId', assigneeUserId);
+            if (creatorUserId) params.append('creatorUserId', creatorUserId);
+            if (assigneeUserId) params.append('assigneeUserId', assigneeUserId);
             params.append('pageSize', pageSize.toString());
             params.append('pageNumber', pageNumber.toString());
 
             url.search = params.toString();
 
-            console.log("url: ", url);
+            const urlString = url.href;
+            console.log("url string: ", `${urlString}`);
+
             const token = await this.getAccesToken();
-            const response = await fetch(url, {
+            const response = await fetch(`${urlString}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -39,10 +41,11 @@ export class TasksDatasourcesImpl extends TasksDatasources {
                 },
             });
             if (response.ok){
+
                 return await response.json();
             }
-            console.log("response getListForum: ", response);
 
+            console.log("!RESPONSE GET TASK: ", response);
             return handleResponseError(response);
         } catch (error) {
             throw new Error("Se ha producido un error inesperado", (error as Error));

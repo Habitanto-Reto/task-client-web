@@ -12,6 +12,7 @@ interface Props {
         assigneeUserId?: string;
         page?: string;
         pageSize?: string;
+
     }
 }
 
@@ -23,16 +24,12 @@ export default async function Tasks({ searchParams }: Props) {
     const assigneeUserId = searchParams.assigneeUserId ? searchParams.assigneeUserId : undefined;
     const { tasks, totalPages, currentPage } = await getPaginationTasks({creatorUserId, assigneeUserId, pageSize, pageNumber});
 
-    if ( tasks.length === 0 ) {
-        redirect('/tasks');
-    }
-
     return (
         <div className="flex flex-col items-center justify-center min-h-screen py-2">
             <h1 className="text-2xl font-bold mb-4">Task Management</h1>
             <EventDialog/>
             <Suspense fallback={null}>
-                <TaskGrid tasks={tasks} currentUserId={session!.user!.uuid}/>
+                <TaskGrid tasks={tasks} currentUserId={session?.user?.uuid || ''}/>
             </Suspense>
             <MyPagination totalPages={totalPages}/>
         </div>
