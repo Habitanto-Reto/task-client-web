@@ -1,6 +1,8 @@
 import {auth, signOut} from "@/auth.config";
 import {redirect} from "next/navigation";
 import {LogoutButton} from "@/components/sidebar/LogoutButton";
+import {Toaster} from "@/components/ui/toaster";
+import Navbar from "@/components/sidebar/Navbar";
 
 export default async function ShopLayout( { children }: {
     children: React.ReactNode;
@@ -13,11 +15,10 @@ export default async function ShopLayout( { children }: {
     }
 
     return (
-        <main className="flex justify-center">
-            <div className="w-full sm:w-[350px] px-10">
-            <LogoutButton/>
+        <main className="justify-center">
+            <Navbar/>
             { children }
-            </div>
+            <Toaster />
         </main>
     );
 }
