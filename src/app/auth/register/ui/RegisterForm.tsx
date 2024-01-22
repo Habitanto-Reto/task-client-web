@@ -40,7 +40,7 @@ export const RegisterForm = () => {
 
     return (
         <form onSubmit={ handleSubmit( onSubmit ) }  className="flex flex-col gap-1.5">
-            <Label htmlFor="email">Nombre completo</Label>
+            <Label htmlFor="email">Name</Label>
             <Input
                 className={
                     clsx(
@@ -55,7 +55,7 @@ export const RegisterForm = () => {
                 { ...register('name', { required: true }) }
             />
 
-            <Label htmlFor="email">Correo electrónico</Label>
+            <Label htmlFor="email">Email</Label>
             <Input
                 className={
                     clsx(
@@ -69,7 +69,7 @@ export const RegisterForm = () => {
                 { ...register('email', { required: true, pattern: /^\S+@\S+$/i }) }
             />
 
-            <Label htmlFor="email">Contraseña</Label>
+            <Label htmlFor="email">Password</Label>
             <Input
                 className={
                     clsx(
@@ -86,7 +86,7 @@ export const RegisterForm = () => {
 
             <span className="text-red-500">{ errorMessage } </span>
 
-            <Button className="btn-primary">Crear cuenta</Button>
+            <Button className="btn-primary">Create account</Button>
 
             <div className="flex items-center my-5">
                 <div className="flex-1 border-t border-gray-500"></div>
@@ -95,7 +95,7 @@ export const RegisterForm = () => {
             </div>
 
             <Link href="/auth/login" className="btn-secondary text-center">
-                Ingresar
+                Sign In
             </Link>
         </form>
     );

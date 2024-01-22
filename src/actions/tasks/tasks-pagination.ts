@@ -28,7 +28,6 @@ export const getPaginationTasks = async ({
         const tasksDatasource = new TasksDatasourcesImpl();
         const tasksRespository = new TasksRepositoryImpl(tasksDatasource);
         const tasks = await tasksRespository.getListTask({creatorUserId, assigneeUserId, pageSize, pageNumber});
-        console.log("TAreas en variable: ", tasks);
         const users = await getListUsers();
 
         const tasksWithCreatorName = tasks.items.map(task => {
